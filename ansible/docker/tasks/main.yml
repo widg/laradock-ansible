@@ -1,0 +1,21 @@
+---
+  # - name: Start services
+  #   become: yes
+  #     apt:
+  #       state: latest
+  #       name: python-pip
+
+  - pip:
+      name:
+        - docker
+        - docker-compose
+        - requests>=2.20.1
+
+# - name: install certain python modules for docker
+#   pip:
+#     name: "{{ item.name }}"
+#     version: "{{ item.version }}"
+#     state: present
+#   with_items:
+#   - { name: docker, version: 2.0.0 }
+#   - { name: docker-py, version: 1.10.6 }

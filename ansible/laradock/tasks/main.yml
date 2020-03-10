@@ -1,0 +1,51 @@
+---
+# - name: git clone app
+#   git: repo= dest=/vagrant/app/ version=master
+
+# - name: git clone Laradock
+#   git: repo=https://github.com/Laradock/laradock.git dest=/vagrant/app/laradock/ version=master track_submodules=yes
+
+# - name: copy Laradock environment file
+#   copy: src=/vagrant/app/laradock/env-example dest=/vagrant/app/laradock/.env
+
+# - name: change mysql version
+#   replace:
+#     name: "/vagrant/app/laradock/.env"
+#     regexp: 'MYSQL_VERSION=*.*'
+#     replace: 'MYSQL_VERSION=5.7'
+#   tags:
+#     - replace
+
+# - name: change project folder
+#   replace:
+#     name: "/vagrant/app/laradock/.env"
+#     regexp: 'APP_CODE_PATH_HOST=*.*'
+#     replace: 'APP_CODE_PATH_HOST=/vagrant/app'
+#   tags:
+#     - replace
+
+# - name: change volumes folder
+#   replace:
+#     name: "/vagrant/app/laradock/.env"
+#     regexp: 'DATA_PATH_HOST=*.*'
+#     replace: 'DATA_PATH_HOST=/vagrant/volumes'
+#   tags:
+#     - replace
+
+# - name: Creates directory
+#   file:
+#     path: /vagrant/volumes
+#     state: directory
+
+- name: dokcer compose Laradock(nginx, mysql, phpmyadmin, workspace)
+  docker_compose:
+    state: present
+    project_src: /vagrant/app/laradock
+    services:
+        - nginx
+        - mysql
+        - adminer
+        - workspace
+        - gitlab
+  tags:
+    - docker
